@@ -14,7 +14,7 @@ if (!fs.existsSync(outputDir)) {
 
 const optimizeImage = (fileName, index) => {
   const inputPath = path.join(inputDir, fileName);
-  const outputPath = path.join(outputDir, `${index + 1}.webp`);
+  const outputPath = path.join(outputDir, `${index}.webp`);
 
   sharp(inputPath)
     .webp({ quality: 30 }) // Adjust quality as needed
@@ -25,12 +25,12 @@ const optimizeImage = (fileName, index) => {
         console.log(`Converted ${fileName} to ${outputPath}`);
       }
     });
+
+    ++index;
 };
 
 fs.readdirSync(inputDir).forEach((fileName, index) => {
-  if (fileName.endsWith('.jpg') || fileName.endsWith('.jpeg')) {
+  if (fileName.endsWith('.jpg') || fileName.endsWith('.jpeg') || fileName.endsWith('.JPEG') || fileName.endsWith('.JPG')) {
     optimizeImage(fileName, index);
   }
 });
-
-
